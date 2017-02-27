@@ -49,3 +49,5 @@ const finalData = Rx.Observable.merge(add, remove)
 // Finally, re-render every time the finalData changes
 finalData.subscribe(render)
 
+render(INITIAL_DATA)
+
