@@ -18,9 +18,18 @@ const render = (data) => {
   content.innerHTML = `<span>${data.map(item => item.value).join(', ')}</span>`
 }
 
+// add gets new value (click event) every time the addButton is clicked
+const addClick = Rx.Observable.fromEvent(addButton, 'click')
+
+// Enterpress checks all the input keys and let's a new value through on <Enter>
+const enterPress = Rx.Observable
+  .fromEvent(textInput, 'keyup')
+  .filter(event => event.key === 'Enter')
+
 const add =
-  // add gets new value (click event) every time the addButton is clicked
-  Rx.Observable.fromEvent(addButton, 'click')
+  // We merge both the button click and the <enter> press to send 'add' event
+  Rx.Observable.merge(addClick, enterPress)
+
   // We don't actually care about the event, so we map it into our own
   .map(() => ({ action: 'add', value: textInput.value }))
   // We need to call .share() because we subscribe multiple times to this observable
