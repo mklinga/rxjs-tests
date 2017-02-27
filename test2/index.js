@@ -5,7 +5,7 @@ const INITIAL_DATA = [
   { id: 1, value: 'Good things' },
   { id: 2, value: 'Reactive things' }
 ]
-let nextId = 3;
+let nextId = 3
 
 // Element references on the page
 const addButton = document.getElementById('add')
@@ -51,11 +51,11 @@ const finalData = Rx.Observable.merge(add, remove)
   .scan((data, change) => {
     return (change.action === 'add')
       ? data.concat({ id: nextId++, value: change.value })
-      : data.slice(0, data.length - 1);
+      : data.slice(0, data.length - 1)
   }, INITIAL_DATA)
   
 // Finally, re-render every time the finalData changes
 finalData.subscribe(render)
 
+// Initial render
 render(INITIAL_DATA)
-
