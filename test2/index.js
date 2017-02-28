@@ -27,15 +27,13 @@ const enterPress = Rx.Observable
   .filter(event => event.key === 'Enter')
 
 const add =
-  // We merge both the button click and the <enter> press to send 'add' event
+  // We 'merge' both the button click and the <enter> press to send 'add' event
+  // whenever either one of them has been triggered
   Rx.Observable.merge(addClick, enterPress)
   // We don't actually care about the event, so we map it into our own
   .map(() => ({ action: 'add', value: textInput.value }))
-  // We need to call .share() because we subscribe multiple times to this observable
-  .share()
-
-// We clear the textInput every time the 'add' has been clicked
-add.subscribe(() => textInput.value = '')
+  // We clear the textInput every time the 'add' has been clicked
+  .do(() => textInput.value = '')
 
 // On clicking the 'remove' button, we send a 'remove' action on the handler below
 // We could also send a specific ip as the payload if we wanted
