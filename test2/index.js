@@ -36,7 +36,7 @@ const add =
   .do(() => textInput.value = '')
 
 // On clicking the 'remove' button, we send a 'remove' action on the handler below
-// We could also send a specific ip as the payload if we wanted
+// We could also send a specific id as the payload if we wanted to remove a specific item
 const remove = Rx.Observable.fromEvent(removeButton, 'click')
   .map(() => ({ action: 'remove' }))
 
